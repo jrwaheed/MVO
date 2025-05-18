@@ -1,0 +1,69 @@
+<html>
+<!DOCTYPE html>
+<html lang="en-US">
+    
+    <head>
+        <h1 style="font-family:Calibri;"> Mean Variance Optimization </h1>
+
+<link href="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.3.min.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.3.min.js"></script>
+
+    </head>
+<body style="background-color:rgb(227, 238, 240); font-family:calibri;"> 
+  
+  
+
+
+<div style="width: 30%; float:left">
+    <form method="POST" action  = "/">
+        Risk Free Rate <input type="number" name="RFR_Html" placeholder="3">
+        <br>
+        <br>
+         Percentage Interval of Weights <select name="Interval_Html">
+            <option value="Interval20"> 20% Intervals </option>
+            <option value="Interval10"> 10% Intervals </option>  
+            <option value="Interval5"> 5% Intervals </option>        
+        </select>
+
+    <h2 style="font-family:calibri; font-size: medium;">Select Asset Classes: </h2> 
+        
+        <br> UK Large Cap <input type="checkbox" Value=0 name="mycheckbox">
+        <br> UK Mid Cap <input type="checkbox" Value=1 name="mycheckbox">
+        <br> UK Small Cap <input type="checkbox" Value=2 name="mycheckbox">
+        <br> US Equities <input type="checkbox" Value=3 name="mycheckbox">
+        <br> Europe ex UK Equities <input type="checkbox" Value=4 name="mycheckbox">
+        <br> Asia Pacific ex Japan Equities <input type="checkbox" Value=5 name="mycheckbox">
+        <br> Japan Equities <input type="checkbox" Value=6 name="mycheckbox">
+        <br> Emerging Markets Equities <input type="checkbox" Value=7 name="mycheckbox">
+        <br> Global REIT <input type="checkbox" Value=8 name="mycheckbox">
+        <br> Global ex UK Bonds <input type="checkbox" Value=9 name="mycheckbox">
+        <br> UK Bonds <input type="checkbox" Value=10 name="mycheckbox">
+        <br> Cash <input type="checkbox" Value=11 name="mycheckbox">
+        <br>
+        <br> <input type="submit">
+    </form>
+</div>
+<div style="margin-left: 30%;">
+        {{ script | safe}}
+        {{ div | safe}} 
+        <br>
+</div>
+<br>
+<br>   
+
+
+    
+<div style="width: 30%; float:left">
+    {% for table in Returns_h %}
+    {{ table|safe }}
+    {% endfor %}
+</div>
+        
+<div style="margin-left: 35%;">
+    {% for table in Correlations_h %}
+    {{ table|safe }}
+    {% endfor %}
+</div>
+
+</body>
+</html>
