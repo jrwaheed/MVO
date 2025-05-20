@@ -1,73 +1,125 @@
 <html>
 <!DOCTYPE html>
 <html lang="en-US">
-
+    
     <head>
-        <h1 style="font-family:Calibri;"> Mean Variance Optimization </h1>
+        
+        <h1 style="float:left; font-family:sans-serif; line-height: 20%;"> Mean Variance Optimization </h1>
+        <input style="float:right" type="button" onclick="location.href='/profile';" value="About me" />
+        <br>
+        <br>
+        <p style="font-family: sans-serif; line-height: 10%">by Jamal Waheed M.A. </p>
 
 <link href="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.3.min.css" rel="stylesheet" type="text/css">
 <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.3.min.js"></script>
 
-    </head>
-<body style="background-color:rgb(227, 238, 240); font-family:calibri;"> 
+<style>
+   .atable table {border-collapse:collapse; color:black;text-align: center;font-family: sans-serif; border-style:solid; table-layout: fixed;
+    font-size: small; border:1px solid black;}
+    .atable th {background-color: rgb(170, 170, 240); color:black; text-align: center; width:80px;
+        font-family: sans-serif;font-size: small;line-height:normal; word-break:normal;height: 50px;}
+    .atable tr {height: 40px;}
+    .atable td {width: 80px;color:rgb(102, 101, 101)}
+
+    .btable table {border-collapse:collapse; color:black;text-align: center;font-family: sans-serif; border-style:solid; table-layout: fixed;
+    font-size: small; border:1px solid black;}
+    .btable th {background-color: rgb(170, 170, 240); color:black; text-align: center; width:80px;
+        font-family: sans-serif;font-size: small;line-height:normal; word-break:normal;height: 50px;}
+    .btable tr {height: 40px;}
+    .btable td {width: 80px;color:rgb(102, 101, 101);}
+    .btable td:nth-child(2) {background-color: rgb(170, 170, 240);color:black; font-weight: bold;}
+
+    .ctable th {background-color: white; text-align: right; width:80px; border-left: 1px; border-right: 1px;
+        font-family: sans-serif;font-size: small;line-height:normal; word-break:normal;height: 20px; width:max-content;}
+    .ctable tr {height: 10px;}
+    .ctable td {width: 80px;color:red;border-left: 1px; border-right: 1px; width:175px; text-align: left; text-indent:30px}
+    .ctable table {border-collapse:collapse;text-align: center;font-family: sans-serif; table-layout:auto;
+    font-size: small;border-left: 1px; border-right: 1px;}
+
+    .atable table.dataframe thead th:first-child {display: none;}
+    .atable table.dataframe tbody th {display: none;}
+
+    .btable table.dataframe thead th:first-child {display: none;}
+    .btable table.dataframe tbody th {display: none;}
+
+    .ctable table.dataframe thead tr:first-child {display: none;}
     
-   
+
+    form {font-size: small; font-family: sans-serif; justify-items: right; margin-right: 3%;}
+    label {font-size: small; font-family: sans-serif; display: inline-block; width: 100%; text-align: right;}  
+    input {font-size: small; font-family: sans-serif; width: 120px;} 
+    select, option {width: 120px;}
+</style>
 
 
-<div style="width: 30%; float:left">
-    <form method="POST" action  = "/">
-        Risk Free Rate <input type="number" name="RFR_Html" placeholder="3">
+    </head>
+<body> 
+<br>
+<p style="font-family: sans-serif;">See the resulting optimal portfolio and Markowitz curve below. Place mouse cursor over plot data points to see the details of each possible portfolio combination
+based on your input.</p>
+<br>
+<div>
+    <div style="width: 27%; float:left; font-family: sans-serif;">
+        <div style="border:2px solid blue; padding:10px;  height:fit-content; border-radius:25px">
+            <div style="flex:auto">
+                <div style="font-size:small; display: inline;">Selected Risk Free Rate in (%):</div> 
+                <div style="font-size:small; font-weight:bold; display: inline; float:right;">{{RFR_h}}</div>
+            </div>
+            <br>
+            <div>
+                <div style="font-size: small; display: inline;">Selected Interval of Asset Weights:</div>  
+                <div style="font-size:small; font-weight:bold; display:inline; float:right;">{{Interval_h}}</div>
+            </div>
+            <br>
+            <label>
+                <input type="button" onclick="location.href='/garbageman';" value="Reset Optimizer" />
+            </label>
+        </div>
         <br>
-        <br>
-         Percentage Interval of Weights <select name="Interval_Html">
-            <option value="Interval20"> 20% Intervals </option>
-            <option value="Interval10"> 10% Intervals </option>  
-            <option value="Interval5"> 5% Intervals </option>        
-        </select>
+        <p style="font-family: sans-serif;font-weight:bold";>See table below for the optimal portfolio based on your input.</p>
 
-    <h2 style="font-family:Calibri; font-size: medium;">Select Asset Classes: </h2> 
-        
-        <br> UK Large Cap <input type="checkbox" Value=0 name="mycheckbox">
-        <br> UK Mid Cap <input type="checkbox" Value=1 name="mycheckbox">
-        <br> UK Small Cap <input type="checkbox" Value=2 name="mycheckbox">
-        <br> US Equities <input type="checkbox" Value=3 name="mycheckbox">
-        <br> Europe ex UK Equities <input type="checkbox" Value=4 name="mycheckbox">
-        <br> Asia Pacific ex Japan Equities <input type="checkbox" Value=5 name="mycheckbox">
-        <br> Japan Equities <input type="checkbox" Value=6 name="mycheckbox">
-        <br> Emerging Markets Equities <input type="checkbox" Value=7 name="mycheckbox">
-        <br> Global REIT <input type="checkbox" Value=8 name="mycheckbox">
-        <br> Global ex UK Bonds <input type="checkbox" Value=9 name="mycheckbox">
-        <br> UK Bonds <input type="checkbox" Value=10 name="mycheckbox">
-        <br> Cash <input type="checkbox" Value=11 name="mycheckbox">
-        <br>
-        <br> <input type="reset">
-    </form>
-</div>
-<div style="margin-left: 30%;">
-        {{ script | safe}}
-        {{ div | safe}}
-        <br>
-</div>
-<div style="font-family:Calibri; font-size: medium;">
-{% for table in portfolio_h %}
-            
+        <div class = "ctable" style = "width:100%; font-size: small;">
+            {% for table in portfolio_h %}
             {{ table|safe }}
-    {% endfor %}
-</div>
+            {% endfor %}
+        </div>
+    </div>
+    <div style="margin-left:30%;">   
+        {{ script | safe}}
+        {{ div | safe}} 
         <br>
+    </div>
+</div>
+<br>
 
-
-<div style="width: 30%; float:left">
+<br>
+<br>
+<br>
+<p style="font-family: sans-serif;">The following two datasets are sample data used for the Markowitz curve and the optimal portfolio calculations above. These figures are not necessarily indicative of the assets <br>
+listed. 
+<br>
+<div>   
+    <div class = "atable" style="float:left">
+    <p style="font-family: sans-serif; font-weight: bold";>Sample Expected Returns<br>
+    and Standard Deviations<p>
     {% for table in Returns_h %}
     {{ table|safe }}
     {% endfor %}
+    </div>
+            
+    <div class= "btable" style="float:right">
+        <br>
+        <p style="font-family:sans-serif; font-weight: bold;">Sample Correlations<p>
+        {% for table in Correlations_h %}
+        {{ table|safe }}
+        {% endfor %}
+    </div>
+    <br>
+    <br>
 </div>
-
-<div style="margin-left: 35%;">
-    {% for table in Correlations_h %}
-    {{ table|safe }}
-    {% endfor %}
-</div>
-
 </body>
 </html>
+
+
+
+

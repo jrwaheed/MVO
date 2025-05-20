@@ -1,46 +1,108 @@
 <html>
 <!DOCTYPE html>
+
+<style>
+    .atable table {border-collapse:collapse; color:black;text-align: center;font-family: sans-serif; border-style:solid; table-layout: fixed;
+     font-size: small; border:1px solid black;}
+     .atable th {background-color: rgb(170, 170, 240); color:black; text-align: center; width:80px;
+         font-family: sans-serif;font-size: small;line-height:normal; word-break:normal;height: 50px;}
+     .atable tr {height: 40px;}
+     .atable td {width: 80px;color:rgb(102, 101, 101)}
+ 
+     .btable table {border-collapse:collapse; color:black;text-align: center;font-family: sans-serif; border-style:solid; table-layout: fixed;
+     font-size: small; border:1px solid black;}
+     .btable th {background-color: rgb(170, 170, 240); color:black; text-align: center; width:80px;
+         font-family: sans-serif;font-size: small;line-height:normal; word-break:normal;height: 50px;}
+     .btable tr {height: 40px;}
+     .btable td {width: 80px;color:rgb(102, 101, 101);}
+     .btable td:nth-child(2) {background-color: rgb(170, 170, 240);color:black; font-weight: bold;}
+ 
+     .ctable table {border-collapse:collapse; color:black;text-align: center;font-family: sans-serif; border-style:solid; table-layout:auto;
+     font-size: small; border:1px solid white;}
+     .ctable th {background-color: white; color:black; text-align: center; width:80px;
+         font-family: sans-serif;font-size: small;line-height:normal; word-break:normal;height: 50px;}
+     .ctable tr {height: 40px;}
+     .ctable td {width: 80px;color:red;}
+ 
+     table.dataframe thead th:first-child {display: none;}
+     table.dataframe tbody th {display: none;}
+ 
+     form {font-size: small; font-family: sans-serif; justify-items: right; margin-right: 3%;}
+     label {font-size: small; font-family: sans-serif; display: inline-block; width: 100%; text-align: right;}  
+     input {font-size: small; font-family: sans-serif; width: 120px;} 
+     select, option {width: 120px;}
+ </style>
+
 <html lang="en-US">
     
     <head>
-        <h1 style="font-family:Calibri;"> Mean Variance Optimization </h1>
+        
+        <h1 style="float:left; font-family:sans-serif; line-height: 20%;"> Mean Variance Optimization </h1>
+
+        <input style="float:right" type="button" onclick="location.href='/profile';" value="About me" />
+        <br>
+        <br>
+        <p style="font-family: sans-serif; line-height: 10%">by Jamal Waheed M.A. </p>
+    
 
 <link href="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.3.min.css" rel="stylesheet" type="text/css">
 <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.2.3.min.js"></script>
 
+
+
+
     </head>
-<body style="background-color:rgb(227, 238, 240); font-family:calibri;"> 
-  
-  
+
+<body> 
+
+<br>
+<p style="font-family: sans-serif;"> Complete the form below highlighted in blue. Enter a sensible risk free rate (e.g. 3.0), an interval for possible asset weighting<br>
+and at least two assets. Once filled, click the 'Run Optimization' button.<p>
 
 
-<div style="width: 30%; float:left">
-    <form method="POST" action  = "/">
-        Risk Free Rate <input type="number" name="RFR_Html" placeholder="3">
+<div style="width: 27%; float:left; border:2px solid blue; height: fit-content; border-radius:25px">
+    <form action  = "/" method="POST">
         <br>
-        <br>
-         Percentage Interval of Weights <select name="Interval_Html">
-            <option value="Interval20"> 20% Intervals </option>
-            <option value="Interval10"> 10% Intervals </option>  
-            <option value="Interval5"> 5% Intervals </option>        
-        </select>
-
-    <h2 style="font-family:calibri; font-size: medium;">Select Asset Classes: </h2> 
+        <label>
+            Risk Free Rate in (%): <input type="number" name="RFR_Html" step=".1"> 
+        </label>
         
-        <br> UK Large Cap <input type="checkbox" Value=0 name="mycheckbox">
-        <br> UK Mid Cap <input type="checkbox" Value=1 name="mycheckbox">
-        <br> UK Small Cap <input type="checkbox" Value=2 name="mycheckbox">
-        <br> US Equities <input type="checkbox" Value=3 name="mycheckbox">
-        <br> Europe ex UK Equities <input type="checkbox" Value=4 name="mycheckbox">
-        <br> Asia Pacific ex Japan Equities <input type="checkbox" Value=5 name="mycheckbox">
-        <br> Japan Equities <input type="checkbox" Value=6 name="mycheckbox">
-        <br> Emerging Markets Equities <input type="checkbox" Value=7 name="mycheckbox">
-        <br> Global REIT <input type="checkbox" Value=8 name="mycheckbox">
-        <br> Global ex UK Bonds <input type="checkbox" Value=9 name="mycheckbox">
-        <br> UK Bonds <input type="checkbox" Value=10 name="mycheckbox">
-        <br> Cash <input type="checkbox" Value=11 name="mycheckbox">
         <br>
-        <br> <input type="submit">
+        <br>
+        <br>
+        <label>
+            Percentage Interval of Asset Weights: <select name="Interval_Html" >
+                <option value="Interval20"> 20% Intervals </option>
+                <option value="Interval10"> 10% Intervals </option>  
+                <option value="Interval5"> 5% Intervals </option>        
+            </select>
+        </label>
+        <br>
+        <br>
+        <br>
+        <div style="float: right; margin-right: 37%;">Assets:</div>
+        
+        <label>
+            <br> UK Large Cap <input type="checkbox" Value=0 name="mycheckbox">
+            <br> UK Mid Cap <input type="checkbox" Value=1 name="mycheckbox">
+            <br> UK Small Cap <input type="checkbox" Value=2 name="mycheckbox">
+            <br> US Equities <input type="checkbox" Value=3 name="mycheckbox">
+            <br> Europe ex UK Equities <input type="checkbox" Value=4 name="mycheckbox">
+            <br> Asia Pacific ex Japan Equities <input type="checkbox" Value=5 name="mycheckbox">
+            <br> Japan Equities <input type="checkbox" Value=6 name="mycheckbox">
+            <br> Emerging Markets Equities <input type="checkbox" Value=7 name="mycheckbox">
+            <br> Global REIT <input type="checkbox" Value=8 name="mycheckbox">
+            <br> Global ex UK Bonds <input type="checkbox" Value=9 name="mycheckbox">
+            <br> UK Bonds <input type="checkbox" Value=10 name="mycheckbox">
+            <br> Cash <input type="checkbox" Value=11 name="mycheckbox">
+        </label>
+        <br>
+        <br> 
+        <br>
+        <br>
+        <label>
+            <input type="Submit" value="Run Optimization";>
+        </label>
     </form>
 </div>
 <div style="margin-left: 30%;">
@@ -49,21 +111,27 @@
         <br>
 </div>
 <br>
-<br>   
-
-
-    
-<div style="width: 30%; float:left">
-    {% for table in Returns_h %}
-    {{ table|safe }}
-    {% endfor %}
+<br>
+<p style="font-family: sans-serif">The following two datasets are sample data used for the Markowitz curve, Efficient Frontier
+and the optimal portfolio calculations above. These figures are not necessarily indicative of the assets listed.<p> 
+<div>   
+    <div class = "atable" style="float:left">
+        <p style="font-family: sans-serif; font-weight: bold";>Sample Expected Returns<br>
+        and Standard Deviations<p>
+        {% for table in Returns_h %}
+        {{ table|safe }}
+        {% endfor %}
+    </div>
+            
+    <div class= "btable" style="float:right">
+        <br>
+        <p style="font-family:sans-serif; font-weight: bold;">Sample Correlations<p>
+        {% for table in Correlations_h %}
+        {{ table|safe }}
+        {% endfor %}
+    </div>
+    <br>
+    <br>
 </div>
-        
-<div style="margin-left: 35%;">
-    {% for table in Correlations_h %}
-    {{ table|safe }}
-    {% endfor %}
-</div>
-
 </body>
 </html>
